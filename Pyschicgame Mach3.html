@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>The Super Fun Psychic Game!</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<H1><bold>The Psychic Game<bold></H1>
+	<h6>Guess What Letter I'm thinking of!</h6>
+
+		<h2>Wins:<span id="totalWins"></span></h2>
+		<h3>Losses: <span id="totalLosses"></span><h3>
+		<h5>Letters Guessed: <span id="wrongLetters"></span><h5>
+		<h4>Lives: <span id="lives"></span><h4>
+		
+	<script type="text/javascript">
+		
+		var guesses = 0;
+   		var letters = [
+               "a","b","c","d","e","f","g","h","i","j","k","l","m","n","o",
+               "p","q","r","s","t","u","v","w","x","y","z"
+               ];
+   		var letterToGuess = "";
+   		var lettersGuessed;
+   		var gameOver = false;
+   		var totalWins= "0";
+   		var totalLosses= "0";
+   		var lives= "9";
+   		var	wrongLetters= [];
+
+		function letterChoose(){
+		var letterIndex = Math.floor(Math.random() * letters.length);
+
+			return letters[letterIndex];
+		}
+		var letterToGuess =letterChoose();
+
+
+	document.onkeyup = function(event) {
+	
+	var usersChoice = String.fromCharCode(event.keyCode).toLowerCase();
+		console.log(usersChoice)
+		
+		if (event.keyCode >= 65 && event.keyCode <= 90){
+
+		wrongLetters.push(usersChoice);
+		
+
+		if(usersChoice === letterToGuess) {
+			totalWins++
+			
+			wrongLetters.length=0;
+			letterChoose();
+				letterToGuess =letterChoose();
+			lives="9"
+			}
+		
+		if(usersChoice != letterToGuess){
+			wrongLetters + usersChoice;
+			lives--
+		}
+		if(lives < 1){
+			totalLosses++
+			lives="9"
+			wrongLetters.length=0;
+		}
+            console.log(letterToGuess);
+        	console.log(totalWins)
+        	console.log(totalLosses)
+        	console.log(lives)
+        	console.log(wrongLetters)
+        document.getElementById("lives").innerHTML = lives;
+		document.getElementById('wrongLetters').innerHTML = wrongLetters;
+		document.getElementById('totalWins').innerHTML = totalWins;
+		document.getElementById('totalLosses').innerHTML = totalLosses;
+        }
+    }
+
+	</script>
+	
+</body>
+</html>
